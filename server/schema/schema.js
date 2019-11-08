@@ -12,9 +12,24 @@ const BookType = new GraphQLObjectType({
     fields: () => ({
         id: {type: GraphQLID},
         name: {type: GraphQLString},
-        genre: {type: GraphQLString}
-    })
+        genre: {type: GraphQLString},
+        author: {
+            type: AuthorType,
+            resolve(parent, args) {
+                return booklibrary.findAuthor(parent.authorId)
+            }
+        }
+    }) 
 });
+
+/* The request can look like: {
+	book(id: "2") {
+    name,
+    author {
+      name
+    }
+	}
+} */
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
@@ -35,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
                 return booklibrary.findBook(args.id); //args.id would be always converted to string when using GraphQLID
             }
         },
-        author: { //name is going to be used in the query: book(id:'123')-
+        author: { //name is going to be used in the query: author(id:'123')-
             type: AuthorType,
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
