@@ -70,15 +70,39 @@ const RootQuery = new GraphQLObjectType({
                 return booklibrary.findBook(args.id); //args.id would be always converted to string when using GraphQLID
             }
         },
+        books : {
+            type: new GraphQLList(BookType),
+            resolve (parent, args) {
+                return booklibrary.findAllBooks();
+            }
+        },
         author: { //name is going to be used in the query: author(id:'123')-
             type: AuthorType,
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
                 return booklibrary.findAuthor(args.id);
             }
-        }  
+        },
+        authors : {
+            type: new GraphQLList(AuthorType),
+            resolve (parent, args) {
+                return booklibrary.findAllAuthors();
+            }
+        },  
     }
 });
+
+/*
+The request to get all books with authors can look like:
+{
+	books {
+    name,
+    author {
+      name
+    }
+  }
+}
+ */
 
 module.exports = new GraphQLSchema({
     query: RootQuery
