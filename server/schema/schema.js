@@ -5,6 +5,7 @@ const {GraphQLObjectType,
     GraphQLString, 
     GraphQLID, 
     GraphQLInt,
+    GraphQLList,
     GraphQLSchema} = graphql; // we need to grab special graphql types
 
 const BookType = new GraphQLObjectType({
@@ -36,9 +37,28 @@ const AuthorType = new GraphQLObjectType({
     fields: () => ({
         id: {type: GraphQLID},
         name: {type: GraphQLString},
-        age: {type: GraphQLInt}
+        age: {type: GraphQLInt},
+        books: {
+            type: new GraphQLList(BookType),
+            resolve(parent, args) {
+                return booklibrary.findBooksByAuthor(parent.id);
+            }
+        }
     })
 });
+
+/*
+ The request can look like:
+ {
+	author(id: "1") {
+    name,
+    books {
+      name,
+      genre
+    }
+	}
+}
+ */
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
