@@ -1,4 +1,5 @@
 const graphql = require('graphql');
+const booklibrary = require('./booklibrary');
 
 const {GraphQLObjectType, GraphQLString, GraphQLSchema} = graphql; // we need to grab special graphql types
 
@@ -18,7 +19,7 @@ const RootQuery = new GraphQLObjectType({
             type: BookType,
             args: {id: {type: GraphQLString}},
             resolve(parent, args) {
-                // code to get data from DB by args.id
+                return booklibrary.findBook(args.id);
             }
         } 
     }
