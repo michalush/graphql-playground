@@ -5,7 +5,7 @@ var books = [
     {name: "My Hero Book", genre: "Roman", id : "1", authorId: "3"},
     {name: "Harry Potter", genre:"Fantasy", id : "2", authorId: "2"},
     {name: "Death in the Theater", genre:"Crime", id : "3", authorId: "1"},
-    {name: "Roses", genre:"Crime", id : "3", authorId: "1"},
+    {name: "Roses", genre:"Crime", id : "4", authorId: "1"},
 ]
 
 var authors = [
