@@ -13,7 +13,7 @@ function App() {
   return ( 
     <ApolloProvider client={client}>
       <div>
-        <h1>Frontend Client for GraphQL</h1>
+        <h1>Frontend Client for My GraphQL Books Library App</h1>
         <br />
         <div>
           <ul id="book-list">
